@@ -2,6 +2,8 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import config from './config/index'
+import 'reflect-metadata'
+// import './database/config'
 
 const app = express()
 
