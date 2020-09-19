@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "73b5bb11-b593-4d73-90ca-79c5e833452e",
+		"name": "Estoque",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Loja",
+			"item": [
+				{
+					"name": "CreateLoja",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"loja1\",\n    \"endereco\": {\n        \"rua\": \"rua da loja 1\",\n        \"bairro\": \"bairro da loja 1\",\n        \"cidade\": \"Curitiba\",\n        \"estado\": \"PR\",\n        \"numero\": 15,\n        \"cep\": \"08578082905\",\n        \"pais\": \"Brasil\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/loja",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"loja"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLoja",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/loja",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"loja"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLojaById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/loja/91c37e44-3548-4dd8-8b5f-a53675aca1f2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"loja",
+								"91c37e44-3548-4dd8-8b5f-a53675aca1f2"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteLoja",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/loja/b7b34b90-7c4f-44c5-9e86-903c3f573be8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"loja",
+								"b7b34b90-7c4f-44c5-9e86-903c3f573be8"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "fornecedor",
+			"item": [
+				{
+					"name": "CreateFornecedor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"fornecedor1\",\n    \"endereco\": {\n        \"rua\": \"rua do fornecedor 1\",\n        \"bairro\": \"bairro do fornecedor 1\",\n        \"cidade\": \"Curitiba\",\n        \"estado\": \"PR\",\n        \"numero\": 222,\n        \"cep\": \"085780829545\",\n        \"pais\": \"Brasil\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/fornecedor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"fornecedor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetFornecedor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/fornecedor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"fornecedor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetFornecedorById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/fornecedor/5606b80e-3bde-4830-9a92-5d0c4e8cea6b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"fornecedor",
+								"5606b80e-3bde-4830-9a92-5d0c4e8cea6b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteFornecedor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/fornecedor/f42195e9-1c41-4a11-809f-0002f40b0a4b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"fornecedor",
+								"f42195e9-1c41-4a11-809f-0002f40b0a4b"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "deposito",
+			"item": [
+				{
+					"name": "CreateDeposito",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"deposito 1\",\n    \"endereco\": {\n        \"rua\": \"rua deposito 1\",\n        \"bairro\": \"bairro deposito 1\",\n        \"cidade\": \"Curitiba\",\n        \"estado\": \"PR\",\n        \"numero\": 100,\n        \"cep\": \"08578082905\",\n        \"pais\": \"Brasil\"\n    },\n    \"loja\": \"91c37e44-3548-4dd8-8b5f-a53675aca1f2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/deposito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"deposito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDeposito",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/deposito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"deposito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDepositoById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/deposito/ca6ca18b-515f-43f4-a29c-58aa61b92beb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"deposito",
+								"ca6ca18b-515f-43f4-a29c-58aa61b92beb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteDeposito",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/deposito/165375d8-cf58-41ed-b20c-e025162b811e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"deposito",
+								"165375d8-cf58-41ed-b20c-e025162b811e"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

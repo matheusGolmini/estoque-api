@@ -17,7 +17,7 @@ export default class Deposito extends DefaultAttributes {
     @JoinColumn({ name: 'loja_id' })
     loja: Loja
 
-    @OneToOne(type => Endereco, endereco => Endereco)
+    @OneToOne(type => Endereco, endereco => Endereco, { cascade: true })
     @JoinColumn({ name: 'endereco_id' })
     endereco: Endereco
 }
