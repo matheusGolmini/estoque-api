@@ -9,7 +9,7 @@ export default class Loja extends DefaultAttributes {
     @Column()
     nome: string;
 
-    @OneToOne(type => Endereco, endereco => Endereco)
+    @OneToOne(type => Endereco, endereco => Endereco, { cascade: true })
     @JoinColumn({ name: 'endereco_id' })
     endereco: Endereco
 

@@ -2,9 +2,10 @@ import DefaultAttributes from "./DefaultAttributes";
 import { Column, Entity, OneToOne } from "typeorm";
 import Deposito from "./Deposito";
 import Loja from "./Loja";
+import Fornecedor from "./Fornecedor";
 
 
-@Entity('endereco')
+@Entity('enderecos')
 export default class Endereco extends DefaultAttributes {
     @Column()
     rua: string;
@@ -21,10 +22,19 @@ export default class Endereco extends DefaultAttributes {
     @Column()
     numero: number;
 
+    @Column()
+    pais: string;
+
+    @Column()
+    cep: string;
+
     @OneToOne(type => Deposito, deposito => Deposito)
     deposito: Deposito
 
     @OneToOne(type => Loja, loja => Loja)
     loja: Loja
+
+    @OneToOne(type => Fornecedor, fornecedor => Fornecedor)
+    fornecedor: Fornecedor
 
 }
