@@ -1,7 +1,7 @@
 import DefaultAttributes from "./DefaultAttributes";
-import { Column, Entity, OneToMany, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToMany } from "typeorm";
 import Fornecedor from "./Fornecedor";
-import NotaFiscal from "./NotaFiscal"
+import Documento from "./Documento"
 import Deposito from "./Deposito";
 
 
@@ -13,14 +13,13 @@ export default class Produto extends DefaultAttributes {
     @Column()
     volume: number;
 
-    @ManyToOne(type => Fornecedor, fornecedor => Fornecedor)
-    fornecedor: Fornecedor
+    @ManyToMany(type => Fornecedor)
+    fornecedor: Fornecedor[]
 
-    @ManyToOne(type => NotaFiscal, notaFiscal => NotaFiscal)
-    notaFiscal: NotaFiscal
+    @ManyToMany(type => Documento)
+    documento: Documento[]
 
-    @ManyToOne(type => Deposito, deposito => Deposito)
-    @JoinColumn({ name: 'deposito_id' })
-    deposito: Deposito
+    @ManyToMany(type => Deposito)
+    deposito: Deposito[]
 }
 

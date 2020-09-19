@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import Crud from "../repository";
 import { Tables } from "../enum/tables"
 
-const crudRepository = new Crud(Tables.DEPOSITO)
+const crudRepository = new Crud(Tables.PRODUTO)
 
 export async function criar(req: Request, res: Response) {
     const loja = req.body

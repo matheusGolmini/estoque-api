@@ -3,6 +3,6 @@ export enum Tables {
     ENDERECO = "enderecos",
     FORNECEDORES = "fornecedores",
     LOJA = "lojas",
-    NOTAFISCAL = "notas_fiscais",
+    DOCUMENTO = "documentos",
     PRODUTO = "produtos"
 }
