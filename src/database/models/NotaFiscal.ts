@@ -1,5 +1,6 @@
-import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from "typeorm";
 import Produto from "./Produto";
+import Fornecedor from "./Fornecedor";
 
 
 @Entity('notas_fiscais')
@@ -11,9 +12,15 @@ export default class NotaFiscal {
     createdAt: Date
 
     @Column()
-    tipNota: string;
+    valor: number;
 
-    @ManyToOne(type => Produto, produto => Produto)
+    @Column()
+    quantidade: number;
+
+    @ManyToOne(type => Fornecedor, fornecedor => Fornecedor)
+    fornecedor: Fornecedor
+
+    @OneToMany(type => Produto, produto => Produto)
     @JoinTable({ name: 'produto_id'})
     produto: Produto[]
 }

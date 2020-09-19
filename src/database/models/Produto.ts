@@ -1,5 +1,5 @@
 import DefaultAttributes from "./DefaultAttributes";
-import { Column, Entity, OneToMany, ManyToMany, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, OneToMany, JoinColumn, ManyToOne } from "typeorm";
 import Fornecedor from "./Fornecedor";
 import NotaFiscal from "./NotaFiscal"
 import Deposito from "./Deposito";
@@ -11,15 +11,12 @@ export default class Produto extends DefaultAttributes {
     nome: string;
 
     @Column()
-    medida: number;
+    volume: number;
 
-    @Column()
-    valor: number;
-
-    @OneToMany(type => Fornecedor, fornecedor => Fornecedor)
+    @ManyToOne(type => Fornecedor, fornecedor => Fornecedor)
     fornecedor: Fornecedor
 
-    @OneToMany(type => NotaFiscal, notaFiscal => NotaFiscal)
+    @ManyToOne(type => NotaFiscal, notaFiscal => NotaFiscal)
     notaFiscal: NotaFiscal
 
     @ManyToOne(type => Deposito, deposito => Deposito)
