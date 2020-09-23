@@ -1,32 +1,30 @@
 import { Response, Request } from "express";
 import Crud from "../repository";
-import { Tables } from "../enum/tables"
+import { Tables } from "../enum/tables";
 
 const crudRepository = new Crud(Tables.DOCUMENTO)
 
 export async function compraProduto(req: Request, res: Response) {
-    const loja = req.body
-    const result = await crudRepository.create(loja)
-    if(!result) return res.status(404).json({message: "não foi possivel cadastrar o fornecedor no sistema"})
-    return res.status(202).json(result)
+    const { nota } = req.body
+    
+    const instaceProduto = new Crud(Tables.PRODUTO);
+    const produto: any = await instaceProduto.findById(nota.produto_id)
+    if(!produto || produto === "unknown") return res.status(404).json({message: "produto não encontrado"})
+    const volumeTotalNota = produto.volume * nota.quantidade
+    console.log(volumeTotalNota)
+    const instaceDeposito = new Crud(Tables.DEPOSITO);
+    const deposito: any = await instaceDeposito.findById(nota.deposito_id)
+    if(!deposito || deposito === "unknown") return res.status(404).json({message: "deposito não encontrado"})
+    const espacoLivre = deposito.volumeMax - deposito.volumeLivre
+    console.log(espacoLivre)
+    if(volumeTotalNota > espacoLivre) return res.status(404).json({ message: "deposito lotado" })
+
+    const novaNota =  await crudRepository.create(nota)
+
+    deposito.volumeLivre += volumeTotalNota
+    instaceDeposito.update(deposito)
+
+    return res.status(200).json(novaNota)
 }
 
-export async function buscar(req: Request, res: Response) {
-    const result = await crudRepository.findAll()
-    if(!result) return res.status(404).json({message: "não possui fornecedores"})
-    return res.status(202).json(result)
-}
 
-export async function buscarPorId(req: Request, res: Response) {
-    const { id } = req.params
-    const result = await crudRepository.findById(String(id))
-    if(!result) return res.status(404).json({message: "fornecedor não encontrada"})
-    return res.status(202).json(result)
-}
-
-export async function deletar(req: Request, res: Response) {
-    const { id } = req.params
-    const result = await crudRepository.delete(String(id))
-    if(!result) return res.status(404).json({message: "não foi possivel deletar o fornecedor"})
-    return res.status(202).json(result)
-}

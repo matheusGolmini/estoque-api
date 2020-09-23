@@ -1,8 +1,9 @@
 import DefaultAttributes from "./DefaultAttributes";
-import { Column, Entity, ManyToOne, JoinColumn, OneToOne, ManyToMany, JoinTable } from "typeorm";
+import { Column, Entity, ManyToOne, JoinColumn, OneToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import Produto from "./Produto";
 import Loja from "./Loja";
 import Endereco from "./Endereco";
+import Documento from "./Documento";
 
 
 @Entity('depositos')
@@ -19,9 +20,8 @@ export default class Deposito extends DefaultAttributes {
     @Column({name:  "volume_livre"})
     volumeLivre: number;
 
-    @ManyToMany(type => Produto)
-    @JoinTable({name: "deposito_produto"})
-    produto: Produto[]
+    @OneToMany(type => Documento, documento => Documento)
+    documento: Documento[]
 
     @ManyToOne(type => Loja, loja => Loja)
     @JoinColumn({ name: 'loja_id' })

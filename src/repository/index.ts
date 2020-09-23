@@ -31,7 +31,7 @@ export default class Crud {
         }
     }
 
-    async findById(id: string){
+    async findById(id: string) {
         try {
             const instaceTable = getRepository(this.table)
             const res = await instaceTable.findOne(id)
@@ -53,4 +53,27 @@ export default class Crud {
             return false
         }
     }
+
+    async insert(value: string) {
+        try {
+            const instaceTable = getRepository(this.table)
+            const res = await instaceTable.insert(value)
+            return res
+        } catch (error) {
+            console.log(`Class Crud ${error}`)
+            return false
+        }
+    }
+
+    async update(value: string) {
+        try {
+            const instaceTable = getRepository(this.table)
+            const res = await instaceTable.save(value)
+            return res
+        } catch (error) {
+            console.log(`Class Crud ${error}`)
+            return false
+        }
+    }
+
 }

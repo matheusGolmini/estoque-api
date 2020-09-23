@@ -1,6 +1,7 @@
-import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, ManyToMany } from "typeorm";
+import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, ManyToMany, OneToOne, JoinColumn } from "typeorm";
 import Produto from "./Produto";
 import Fornecedor from "./Fornecedor";
+import Deposito from "./Deposito";
 
 
 @Entity('documentos')
@@ -20,8 +21,11 @@ export default class Documento {
     @ManyToOne(type => Fornecedor, fornecedor => Fornecedor)
     fornecedor: Fornecedor
 
-    @ManyToMany(type => Produto)
-    @JoinTable({name:  "produto_documento" })
-    produto: Produto[]
+    @ManyToOne(type => Produto, produto => Produto)
+    @JoinColumn({ name: 'produto_id' })
+    produto: Produto
+
+    @ManyToOne(type => Deposito)
+    deposito: Deposito[]
 }
 
