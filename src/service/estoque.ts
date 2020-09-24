@@ -66,5 +66,5 @@ export async function controleSaidaProdutoEstoque( produto_id: string, deposito_
     result.quantidade -= quantidade
     instaceProdutoEstoque.save(result)
 
-    return { value: true, quantidade: result.quantidade}
+    return { value: true, quantidade: result.quantidade, valor_medio: result.valor_medio}
 }

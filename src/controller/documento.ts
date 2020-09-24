@@ -19,8 +19,6 @@ export async function entradaProduto(req: Request, res: Response) {
     const espacoLivre = deposito.volumeMax - deposito.volumeLivre
     if(volumeTotalNota > espacoLivre) return res.status(404).json({ message: "deposito lotado" })
 
-    console.log("aqui")
-
     const valorUnitario = nota.valor / nota.quantidade
 
     controleEntradaProdutoEstoque(
@@ -58,14 +56,17 @@ export async function saidaProduto(req: Request, res: Response) {
 
     deposito.volumeLivre -= volumeTotalPeido
     instaceDeposito.update(deposito)
-    const valorTotal = produto.valor_medio * pedido.quantidade
-    return res.status(200).json({
-        nota: {
-            quantidade: pedido.quantidade,
-            valorUnitario: produto.valor_medio,
-            valorTotal
-        }
+
+    const valorTotal = result.valor_medio * pedido.quantidade
+    const instaceNotaSaida = new Crud(Tables.NOTAS_SAIDA);
+
+    const notaSaida = await instaceNotaSaida.create({
+        valor: valorTotal,
+        quantidade: pedido.quantidade,
+        produto: produto.id,
+        deposito: deposito.id
     })
+    return res.status(200).json(notaSaida)
 }
 
 

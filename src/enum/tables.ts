@@ -5,5 +5,6 @@ export enum Tables {
     LOJA = "lojas",
     DOCUMENTO = "documentos",
     PRODUTO = "produtos",
-    PRODUTO_ESTOQUE= "produto_estoque"
+    PRODUTO_ESTOQUE= "produto_estoque",
+    NOTAS_SAIDA = "notas_saida"
 }
