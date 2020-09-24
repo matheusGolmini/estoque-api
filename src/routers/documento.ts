@@ -3,7 +3,8 @@ import * as ControllerFornecedor from '../controller/documento'
 
 const router = Router();
 
-router.post('/',ControllerFornecedor.compraProduto);
+router.post('/',ControllerFornecedor.entradaProduto);
+router.post('/saida',ControllerFornecedor.saidaProduto);
 
 
 export default router;

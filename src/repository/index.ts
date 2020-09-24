@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 
 export default class Crud {
