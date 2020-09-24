@@ -16,5 +16,8 @@ export default class ProdutoEstoque extends DefaultAttributes {
     @ManyToOne(type => Deposito, deposito => Deposito)
     @JoinColumn({ name: 'deposito_id' })
     deposito: Deposito
+
+    @Column({ type: "float4", nullable: true })
+    valor_medio: number;
 }
 

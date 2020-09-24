@@ -4,6 +4,7 @@ import Produto from "./Produto";
 import Loja from "./Loja";
 import Endereco from "./Endereco";
 import Documento from "./Documento";
+import NotaSaida from "./NotaSaida";
 
 
 @Entity('depositos')
@@ -30,5 +31,8 @@ export default class Deposito extends DefaultAttributes {
     @OneToOne(type => Endereco, endereco => Endereco, { cascade: true })
     @JoinColumn({ name: 'endereco_id' })
     endereco: Endereco
+
+    @OneToMany(type => NotaSaida, notaSaida => NotaSaida)
+    notaSaida: NotaSaida
 }
 

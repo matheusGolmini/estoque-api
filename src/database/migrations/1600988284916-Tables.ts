@@ -1,12 +1,13 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class Tables1600912534800 implements MigrationInterface {
-    name = 'Tables1600912534800'
+export class Tables1600988284916 implements MigrationInterface {
+    name = 'Tables1600988284916'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "documentos" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "date" TIMESTAMP NOT NULL DEFAULT now(), "valor" integer NOT NULL, "quantidade" integer NOT NULL, "fornecedorId" uuid, "produto_id" uuid, "depositoId" uuid, CONSTRAINT "PK_30b7ee230a352e7582842d1dc02" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "produto_estoque" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_At" TIMESTAMP NOT NULL DEFAULT now(), "updated_At" TIMESTAMP NOT NULL DEFAULT now(), "quantidade" integer NOT NULL, "produto_id" uuid, "deposito_id" uuid, CONSTRAINT "PK_1e9eed82e58b51480b358bcafab" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "produtos" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_At" TIMESTAMP NOT NULL DEFAULT now(), "updated_At" TIMESTAMP NOT NULL DEFAULT now(), "nome" character varying NOT NULL, "volume" integer NOT NULL, "valor_medio" real NOT NULL, CONSTRAINT "PK_a5d976312809192261ed96174f3" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "produto_estoque" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_At" TIMESTAMP NOT NULL DEFAULT now(), "updated_At" TIMESTAMP NOT NULL DEFAULT now(), "quantidade" integer NOT NULL, "valor_medio" real, "produto_id" uuid, "deposito_id" uuid, CONSTRAINT "PK_1e9eed82e58b51480b358bcafab" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "notas_saida" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "date" TIMESTAMP NOT NULL DEFAULT now(), "valor" integer, "quantidade" integer NOT NULL, "produto_id" uuid, "deposito_id" uuid, CONSTRAINT "PK_83a11eb5f817df9fd7a0f562fed" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "produtos" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_At" TIMESTAMP NOT NULL DEFAULT now(), "updated_At" TIMESTAMP NOT NULL DEFAULT now(), "nome" character varying NOT NULL, "volume" integer NOT NULL, CONSTRAINT "PK_a5d976312809192261ed96174f3" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "fornecedores" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_At" TIMESTAMP NOT NULL DEFAULT now(), "updated_At" TIMESTAMP NOT NULL DEFAULT now(), "nome" character varying NOT NULL, "endereco_id" uuid, CONSTRAINT "REL_7b2161ddde97b488c274c6c771" UNIQUE ("endereco_id"), CONSTRAINT "PK_6ba3f90e4a18a597d11b763fc02" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "enderecos" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_At" TIMESTAMP NOT NULL DEFAULT now(), "updated_At" TIMESTAMP NOT NULL DEFAULT now(), "rua" character varying NOT NULL, "bairro" character varying NOT NULL, "cidade" character varying NOT NULL, "estado" character varying NOT NULL, "numero" integer NOT NULL, "pais" character varying NOT NULL, "cep" character varying NOT NULL, CONSTRAINT "PK_208b05002dcdf7bfbad378dcac1" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "lojas" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_At" TIMESTAMP NOT NULL DEFAULT now(), "updated_At" TIMESTAMP NOT NULL DEFAULT now(), "nome" character varying NOT NULL, "endereco_id" uuid, CONSTRAINT "REL_24dda160e234b0cfb4bea6c01e" UNIQUE ("endereco_id"), CONSTRAINT "PK_a81d267d5c303abf4ded1065275" PRIMARY KEY ("id"))`);
@@ -19,6 +20,8 @@ export class Tables1600912534800 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "documentos" ADD CONSTRAINT "FK_58d40f9ac4cb97e34c7b96f4a9a" FOREIGN KEY ("depositoId") REFERENCES "depositos"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "produto_estoque" ADD CONSTRAINT "FK_2d6c2db533915914efc4255013d" FOREIGN KEY ("produto_id") REFERENCES "produtos"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "produto_estoque" ADD CONSTRAINT "FK_ea5cbc7fbfa6a48ee0beb8506c4" FOREIGN KEY ("deposito_id") REFERENCES "depositos"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "notas_saida" ADD CONSTRAINT "FK_9f69c673426ce65506ee3cefd8c" FOREIGN KEY ("produto_id") REFERENCES "produtos"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "notas_saida" ADD CONSTRAINT "FK_202e266d464e31d706ddeebf0de" FOREIGN KEY ("deposito_id") REFERENCES "depositos"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "fornecedores" ADD CONSTRAINT "FK_7b2161ddde97b488c274c6c7714" FOREIGN KEY ("endereco_id") REFERENCES "enderecos"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "lojas" ADD CONSTRAINT "FK_24dda160e234b0cfb4bea6c01e4" FOREIGN KEY ("endereco_id") REFERENCES "enderecos"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "depositos" ADD CONSTRAINT "FK_dd9794eeab6ae4f4ee08e4c049f" FOREIGN KEY ("loja_id") REFERENCES "lojas"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -34,6 +37,8 @@ export class Tables1600912534800 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "depositos" DROP CONSTRAINT "FK_dd9794eeab6ae4f4ee08e4c049f"`);
         await queryRunner.query(`ALTER TABLE "lojas" DROP CONSTRAINT "FK_24dda160e234b0cfb4bea6c01e4"`);
         await queryRunner.query(`ALTER TABLE "fornecedores" DROP CONSTRAINT "FK_7b2161ddde97b488c274c6c7714"`);
+        await queryRunner.query(`ALTER TABLE "notas_saida" DROP CONSTRAINT "FK_202e266d464e31d706ddeebf0de"`);
+        await queryRunner.query(`ALTER TABLE "notas_saida" DROP CONSTRAINT "FK_9f69c673426ce65506ee3cefd8c"`);
         await queryRunner.query(`ALTER TABLE "produto_estoque" DROP CONSTRAINT "FK_ea5cbc7fbfa6a48ee0beb8506c4"`);
         await queryRunner.query(`ALTER TABLE "produto_estoque" DROP CONSTRAINT "FK_2d6c2db533915914efc4255013d"`);
         await queryRunner.query(`ALTER TABLE "documentos" DROP CONSTRAINT "FK_58d40f9ac4cb97e34c7b96f4a9a"`);
@@ -47,6 +52,7 @@ export class Tables1600912534800 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "enderecos"`);
         await queryRunner.query(`DROP TABLE "fornecedores"`);
         await queryRunner.query(`DROP TABLE "produtos"`);
+        await queryRunner.query(`DROP TABLE "notas_saida"`);
         await queryRunner.query(`DROP TABLE "produto_estoque"`);
         await queryRunner.query(`DROP TABLE "documentos"`);
     }

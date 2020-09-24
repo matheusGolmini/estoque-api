@@ -3,9 +3,10 @@ import { Tables } from "../enum/tables";
 
 export async function controleEntradaProdutoEstoque(
 produto_id: string, deposito_id: string,
-valorDepo: number, quantEntrada: number, valorEntrada:number
-): Promise<number> {
+quantEntrada: number, valorEntrada:number, tipoDeposito: string
+): Promise<void> {
     const instaceProdutoEstoque = getRepository(Tables.PRODUTO_ESTOQUE);
+
    
     const result: any = await instaceProdutoEstoque.findOne({ 
         where: {
@@ -13,18 +14,30 @@ valorDepo: number, quantEntrada: number, valorEntrada:number
             deposito: deposito_id 
         }
     })
-    if(!result || result === "unknown") {
+    console.log(tipoDeposito)
+    if(tipoDeposito !== "normal"){
         instaceProdutoEstoque.save({
             produto: produto_id,
             deposito: deposito_id,
-            quantidade: quantEntrada
+            quantidade: quantEntrada,
+            valor_medio: 0
         })
-        return valorEntrada
+        return
+    }
+    if(!result || result === "unknown") {
+        console.log("unknown")
+        instaceProdutoEstoque.save({
+            produto: produto_id,
+            deposito: deposito_id,
+            quantidade: quantEntrada,
+            valor_medio: valorEntrada
+        })
     } else {
-        const media = calcValorMediaProduto(result.quantidade, valorDepo, quantEntrada, valorEntrada) 
+        console.log("else")
+        const media = calcValorMediaProduto(result.quantidade, result.valor_medio, quantEntrada, valorEntrada) 
         result.quantidade += quantEntrada
+        result.valor_medio = media
         instaceProdutoEstoque.save(result)
-        return media
     }
 }
 
