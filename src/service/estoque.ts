@@ -14,7 +14,7 @@ quantEntrada: number, valorEntrada:number, tipoDeposito: string
             deposito: deposito_id 
         }
     })
-    console.log(tipoDeposito)
+
     if(tipoDeposito !== "normal"){
         instaceProdutoEstoque.save({
             produto: produto_id,
@@ -25,7 +25,6 @@ quantEntrada: number, valorEntrada:number, tipoDeposito: string
         return
     }
     if(!result || result === "unknown") {
-        console.log("unknown")
         instaceProdutoEstoque.save({
             produto: produto_id,
             deposito: deposito_id,
@@ -33,7 +32,6 @@ quantEntrada: number, valorEntrada:number, tipoDeposito: string
             valor_medio: valorEntrada
         })
     } else {
-        console.log("else")
         const media = calcValorMediaProduto(result.quantidade, result.valor_medio, quantEntrada, valorEntrada) 
         result.quantidade += quantEntrada
         result.valor_medio = media

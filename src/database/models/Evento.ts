@@ -1,11 +1,11 @@
-import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, ManyToMany, OneToOne, JoinColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn } from "typeorm";
 import Produto from "./Produto";
 import Fornecedor from "./Fornecedor";
 import Deposito from "./Deposito";
 
 
-@Entity('documentos')
-export default class Documento {
+@Entity('evento')
+export default class Evento {
     @PrimaryGeneratedColumn('uuid')
     id: number
 
@@ -18,7 +18,10 @@ export default class Documento {
     @Column()
     quantidade: number;
 
-    @ManyToOne(type => Fornecedor, fornecedor => Fornecedor)
+    @Column()
+    tipo_evento: string;
+
+    @ManyToOne(type => Fornecedor, fornecedor => Fornecedor, { nullable: true })
     fornecedor: Fornecedor
 
     @ManyToOne(type => Produto, produto => Produto)

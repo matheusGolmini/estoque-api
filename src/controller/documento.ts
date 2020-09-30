@@ -3,7 +3,7 @@ import Crud from "../repository";
 import { Tables } from "../enum/tables";
 import { controleEntradaProdutoEstoque, controleSaidaProdutoEstoque } from "../service/estoque";
 
-const crudRepository = new Crud(Tables.DOCUMENTO)
+const crudRepository = new Crud(Tables.EVENTO)
 
 export async function entradaProduto(req: Request, res: Response) {
     const { nota } = req.body
@@ -33,7 +33,7 @@ export async function entradaProduto(req: Request, res: Response) {
     instaceDeposito.update(deposito)
 
     const novaNota =  await crudRepository.create(nota)
-   
+    
     return res.status(200).json(novaNota)
 }
 
@@ -58,13 +58,13 @@ export async function saidaProduto(req: Request, res: Response) {
     instaceDeposito.update(deposito)
 
     const valorTotal = result.valor_medio * pedido.quantidade
-    const instaceNotaSaida = new Crud(Tables.NOTAS_SAIDA);
 
-    const notaSaida = await instaceNotaSaida.create({
+    const notaSaida = await crudRepository.create({
         valor: valorTotal,
         quantidade: pedido.quantidade,
         produto: produto.id,
-        deposito: deposito.id
+        deposito: deposito.id,
+        tipo_evento: pedido.tipo_evento
     })
     return res.status(200).json(notaSaida)
 }

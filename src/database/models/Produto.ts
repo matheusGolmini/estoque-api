@@ -1,9 +1,8 @@
 import DefaultAttributes from "./DefaultAttributes";
 import { Column, Entity, ManyToMany, OneToOne, OneToMany } from "typeorm";
 import Fornecedor from "./Fornecedor";
-import Documento from "./Documento";
-import ProdutoEstoque from "./ProdutoEstoque"
-import NotaSaida from "./NotaSaida";
+import Evento from "./Evento";
+import ProdutoEstoque from "./ProdutoEstoque";
 
 
 @Entity('produtos')
@@ -17,11 +16,8 @@ export default class Produto extends DefaultAttributes {
     @ManyToMany(type => Fornecedor)
     fornecedor: Fornecedor[]
 
-    @OneToOne(type => Documento, documento => Documento)
-    documento: Documento
-
-    @OneToMany(type => NotaSaida, notaSaida => NotaSaida)
-    notaSaida: NotaSaida
+    @OneToOne(type => Evento, evento => Evento)
+    evento: Evento
 
     @OneToMany(type => ProdutoEstoque, produtoEstoque => ProdutoEstoque)
     produtoEstoque: ProdutoEstoque

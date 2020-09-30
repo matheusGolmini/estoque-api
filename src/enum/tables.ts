@@ -3,7 +3,7 @@ export enum Tables {
     ENDERECO = "enderecos",
     FORNECEDORES = "fornecedores",
     LOJA = "lojas",
-    DOCUMENTO = "documentos",
+    EVENTO = "evento",
     PRODUTO = "produtos",
     PRODUTO_ESTOQUE= "produto_estoque",
     NOTAS_SAIDA = "notas_saida"
