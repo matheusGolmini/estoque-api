@@ -10,15 +10,14 @@ export async function entradaProduto(req: Request, res: Response) {
     
     const instaceProduto = new Crud(Tables.PRODUTO);
     const produto: any = await instaceProduto.findById(nota.produto)
-    if(!produto || produto === "unknown") return res.status(404).json({ message: "produto não encontrado" })
+    if(!produto || produto === "unknown") return res.status(200).json({ message: "produto não encontrado", value: false, code:400})
     const volumeTotalNota = produto.volume * nota.quantidade
     
     const instaceDeposito = new Crud(Tables.DEPOSITO);
     const deposito: any = await instaceDeposito.findById(nota.deposito)
-    if(!deposito || deposito === "unknown") return res.status(404).json({message: "deposito não encontrado"})
+    if(!deposito || deposito === "unknown") return res.status(200).json({message: "deposito não encontrado", value: false, code:400})
     const espacoLivre = deposito.volumeMax - deposito.volumeLivre
-    if(volumeTotalNota > espacoLivre) return res.status(404).json({ message: "deposito lotado" })
-
+    if(volumeTotalNota > espacoLivre) return res.status(200).json({ message: "deposito lotado" , value: false, code:400})
     const valorUnitario = nota.valor / nota.quantidade
 
     controleEntradaProdutoEstoque(
