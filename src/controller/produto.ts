@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
 import Crud from "../repository";
 import { Tables } from "../enum/tables"
+import { getRepository } from "typeorm";
 
 const crudRepository = new Crud(Tables.PRODUTO)
 
@@ -29,4 +30,16 @@ export async function deletar(req: Request, res: Response) {
     const result = await crudRepository.delete(String(id))
     if(!result) return res.status(404).json({message: "não foi possivel deletar o fornecedor"})
     return res.status(202).json(result)
+}
+
+export async function getQuantidadeDeprodutoPorDeposito(req: Request, res: Response) {
+    console.log("aqui")
+    const { produtoId, depositoId } = req.query
+    const instaceProdutoEstoque = getRepository(Tables.PRODUTO_ESTOQUE);
+
+    if(!produtoId && !depositoId) return res.status(400).json({message: "não foi passado os parametros corretos"})
+
+    const result = await instaceProdutoEstoque.find({ where: [ {deposito: depositoId }, { produto: produtoId } ] })
+
+    return res.status(200).json(result)
 }
