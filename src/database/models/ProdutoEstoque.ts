@@ -9,7 +9,7 @@ export default class ProdutoEstoque extends DefaultAttributes {
     @Column()
     quantidade: number
 
-    @ManyToOne(type => Produto, produto => Produto)
+    @ManyToOne(type => Produto, produto => Produto, { eager: true })
     @JoinColumn({ name: 'produto_id' })
     produto: Produto[]
 

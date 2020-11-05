@@ -33,13 +33,12 @@ export async function deletar(req: Request, res: Response) {
 }
 
 export async function getQuantidadeDeprodutoPorDeposito(req: Request, res: Response) {
-    console.log("aqui")
-    const { produtoId, depositoId } = req.query
+    const { depositoId } = req.query
     const instaceProdutoEstoque = getRepository(Tables.PRODUTO_ESTOQUE);
 
-    if(!produtoId && !depositoId) return res.status(400).json({message: "não foi passado os parametros corretos"})
+    if(!depositoId) return res.status(400).json({message: "não foi passado os parametros corretos"})
 
-    const result = await instaceProdutoEstoque.find({ where: [ {deposito: depositoId }, { produto: produtoId } ] })
+    const result = await instaceProdutoEstoque.find({ where: [ {deposito: depositoId } ] })
 
     return res.status(200).json(result)
 }
