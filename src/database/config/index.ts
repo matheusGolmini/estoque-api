@@ -1,3 +1,7 @@
-import { createConnection } from 'typeorm'
+import { createConnection, Connection } from 'typeorm'
 
-createConnection()
+let conn: Promise<Connection>;
+export function returnConnection(): Promise<Connection> {
+    if(!!conn) return conn
+    return createConnection()
+}
