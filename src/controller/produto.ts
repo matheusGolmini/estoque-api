@@ -25,6 +25,23 @@ export async function buscarProdutoPorUsuario(req: Request, res: Response) {
     return res.status(202).json(produ)
 }
 
+export async function buscarProdutoPorNomeDoProduto(req: Request, res: Response) {
+    const { nome } = req.query;
+    if(!nome) return res.status(404).send({message: "informe o nome do produto"})
+    const connection = await returnConnection();
+    const produ: Array<Produto> = await connection.mongoManager.find(Produto, {where: { nome }});
+    connection.close()
+    return res.status(202).json(produ)
+}
+
+export async function buscarProdutoPelaQuantidade(req: Request, res: Response) {
+    const { quantidade } = req.query;
+    if(!quantidade) return res.status(404).send({message: "informe a quantidade do produto"})
+    const connection = await returnConnection();
+    const produ: Array<Produto> = await connection.mongoManager.find(Produto, {where: { quantidate: Number(quantidade) }});
+    connection.close()
+    return res.status(202).json(produ)
+}
 export async function atualizarQuantidade(req: Request, res: Response) {
     const { nome, quantidade } = req.body
     if(!nome && quantidade) return res.status(404).send({message: "informe o nome e a quantidade"})
